@@ -1,0 +1,38 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, sans-serif;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body > * {
+  flex-shrink: 0;
+}
+
+#root {
+  display: contents;
+}
+
+::placeholder {
+  color: inherit;
+  opacity: 0.55;
+  white-space: pre-wrap;
+}
+
+[disabled]::placeholder {
+  opacity: 0.5;
+}
