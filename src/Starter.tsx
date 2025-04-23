@@ -15,8 +15,6 @@ export default function Starter() {
       <p>I am not as grandiose as I may be sounding here. It is very much how I feel inside though. That's why I have to articulate it. Sometimes your deep thoughts like those feel unrealistic or too good to be true, or like you are too above yourself. In that mindset, it is sickening to be honest. But now I see, being open in that way allows you to let go of that mental strife, open up the recesses of your mind for new musings and things to learn. There's lots of room for growth, all of the time.</p>
 
       <p>My music has very many different avenues and intentions, and trying to explain them all won't do it justice. It will end up in paragraphs like the parts above. I don't intent to do that today, as that's not what this is about. I could write all day. I am going to restrain myself from doing that, as this initially has the intention to solely represent everything that I am proud of. I don't need to explain it. That, I <em>do</em> still need to work on.</p>
-
-      <p>I am proud of myself, so I am going to show you it!</p>
     </>
   );
 }

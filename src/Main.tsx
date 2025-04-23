@@ -6,7 +6,12 @@ export default function Main() {
       <h4>Hello world! 👋</h4>
       <p>Hey there! My name is Brandon Bennett.</p>
 
-      <Starter/>
+      <details>
+        <summary>More About Me</summary>
+        <Starter/>
+      </details>
+
+      <p>I am proud of myself, so I am going to show you who I am!</p>
 
       <p><em>TBD... (probably next commit)</em></p>
     </>
