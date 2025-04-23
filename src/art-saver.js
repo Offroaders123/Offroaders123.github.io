@@ -1,25 +1,12 @@
-/** @type {typeof import("jszip")} */
-const { default: JSZip } = await import("https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm");
-
-/** @type {HTMLImageElement[]} */
-const musicGridItemImages = [...document.querySelectorAll("#music-grid .music-grid-item img")];
-
+import { basename } from "node:path";
 /** @type {string[]} */
-const imagePaths = musicGridItemImages.map(img => img.src);
+import imagePaths from "./art-paths.json" with { type: "json" };
 
 /** @type {[string, Blob][]} */
 const imageBinaries = await Promise.all(
   imagePaths.map(
     /** @returns {Promise<[string, Blob]>} */
-    async path => [path, (await fetch(path)).blob()]
+    async path => [basename(path), await (await fetch(path)).blob()]
   )
 );
-
-const zip = new JSZip();
-
-for (const [path, blob] of imageBinaries) {
-  zip.file(path, blob);
-}
-
-/** @type {Blob} */
-const zipBlob = await zip.generateAsync({ type: "blob" });
+console.log(imageBinaries);
