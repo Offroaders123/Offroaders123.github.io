@@ -1,7 +1,7 @@
 /* @refresh reload */
 import { render } from "solid-js/web";
 import App from "./App.js";
-import "./index.scss";
+import "./index.css";
 
 const root: HTMLDivElement = document.querySelector("#root")!;
 
