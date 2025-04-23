@@ -2,34 +2,10 @@
   box-sizing: border-box;
 }
 
-html {
-  height: 100%;
-}
-
 body {
-  margin: 0;
-  padding: 0 16px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
   font-family: system-ui, sans-serif;
-}
-
-body > * {
-  flex-shrink: 0;
 }
 
 #root {
   display: contents;
-}
-
-::placeholder {
-  color: inherit;
-  opacity: 0.55;
-  white-space: pre-wrap;
-}
-
-[disabled]::placeholder {
-  opacity: 0.5;
 }
