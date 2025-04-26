@@ -1,14 +1,14 @@
 import { writeFile } from "node:fs/promises";
-import { basename, join } from "node:path";
+import { extname, join } from "node:path";
 
-/** @type {string[]} */
+/** @type {[string, string][]} */
 import imagePaths from "./art-paths.json" with { type: "json" };
 
 /** @type {[string, Uint8Array][]} */
 const imageBinaries = await Promise.all(
   imagePaths.map(
     /** @returns {Promise<[string, Uint8Array]>} */
-    async path => [basename(path), new Uint8Array(await (await fetch(path)).arrayBuffer())]
+    async ([name, path]) => [`${name}${extname(path)}`, new Uint8Array(await (await fetch(path)).arrayBuffer())]
   )
 );
 console.log(imageBinaries);
