@@ -2,7 +2,7 @@ import { writeFile } from "node:fs/promises";
 import { extname, join } from "node:path";
 
 /** @type {[string, string][]} */
-import imagePaths from "./art-paths.json" with { type: "json" };
+import imagePaths from "../public/art-paths.json" with { type: "json" };
 
 /** @type {[string, Uint8Array][]} */
 const imageBinaries = await Promise.all(
