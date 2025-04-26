@@ -1,0 +1,6 @@
+.Discography {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 168px);
+  gap: 1em;
+  justify-content: center;
+}
