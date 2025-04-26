@@ -1,5 +1,5 @@
 import { createResource, For, type ResourceReturn } from "solid-js";
-import bandcampDataPath from "../public/bandcamp-data.json?url";
+import bandcampDataPath from "/bandcamp-data.json?url";
 import type { Release as BandcampRelease } from "./bandcamp.ts";
 import Release from "./Release.tsx";
 
