@@ -9,9 +9,10 @@ export default function Release(props: ReleaseProps) {
         width={168}
         height={168}
         src={`/${props.page_url.split("/").at(-1)}.jpg`}
+        alt={props.title}
         loading="lazy"
       />
-      <p>{props.title}</p>
+      <p><a href={`https://rbnaodn.bandcamp.com${props.page_url}`}>{props.title}</a></p>
     </div>
   );
 }
