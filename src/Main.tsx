@@ -1,3 +1,4 @@
+import Discography from "./Discography.tsx";
 import Starter from "./Starter.tsx";
 
 export default function Main() {
@@ -13,7 +14,7 @@ export default function Main() {
 
       <p>I am proud of myself, so I am going to show you who I am!</p>
 
-      <p><em>TBD... (probably next commit)</em></p>
+      <Discography/>
     </>
   );
 }
