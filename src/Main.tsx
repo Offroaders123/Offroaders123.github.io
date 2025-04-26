@@ -3,7 +3,7 @@ import Starter from "./Starter.tsx";
 
 export default function Main() {
   return (
-    <>
+    <main>
       <h4>Hello world! 👋</h4>
       <p>Hey there! My name is Brandon Bennett.</p>
 
@@ -15,6 +15,6 @@ export default function Main() {
       <p>I am proud of myself, so I am going to show you who I am!</p>
 
       <Discography/>
-    </>
+    </main>
   );
 }

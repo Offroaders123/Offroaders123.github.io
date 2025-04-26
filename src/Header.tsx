@@ -1,5 +1,7 @@
 export default function Header() {
   return (
-    <h1>Brandon Bennett</h1>
+    <header>
+      <h1>Brandon Bennett</h1>
+    </header>
   );
 }

@@ -4,13 +4,13 @@ export interface ReleaseProps extends Pick<MusicLike, "title" | "publish_date" |
 
 export default function Release(props: ReleaseProps) {
   return (
-    <>
+    <div>
       <img
         width={168}
         src={`/${props.title}.jpg`}
         loading="lazy"
       />
       <p>{props.title}</p>
-    </>
+    </div>
   );
 }

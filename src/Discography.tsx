@@ -10,7 +10,7 @@ export default function Discography() {
   });
 
   return (
-    <>
+    <div>
       <For each={bandcampData()}>
         {release => (
           <Release
@@ -18,6 +18,6 @@ export default function Discography() {
           />
         )}
       </For>
-    </>
+    </div>
   );
 }
