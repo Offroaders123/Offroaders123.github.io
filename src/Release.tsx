@@ -7,6 +7,7 @@ export default function Release(props: ReleaseProps) {
     <div>
       <img
         width={168}
+        height={168}
         src={`/${props.page_url.split("/").at(-1)}.jpg`}
         loading="lazy"
       />
