@@ -5,4 +5,4 @@ import "./index.css";
 
 const root: HTMLDivElement = document.querySelector("#root")!;
 
-render(() => <App/>, root);
+render(() => <App />, root);

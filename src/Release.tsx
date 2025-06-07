@@ -1,6 +1,6 @@
 import type { MusicLike } from "./bandcamp.ts";
 
-export interface ReleaseProps extends Pick<MusicLike, "title" | "publish_date" | "release_date" | "page_url"> {}
+export interface ReleaseProps extends Pick<MusicLike, "title" | "publish_date" | "release_date" | "page_url"> { }
 
 export default function Release(props: ReleaseProps) {
   return (

@@ -9,12 +9,12 @@ export default function Main() {
 
       <details>
         <summary>More About Me</summary>
-        <Starter/>
+        <Starter />
       </details>
 
       <p>I am proud of myself, so I am going to show you who I am!</p>
 
-      <Discography/>
+      <Discography />
     </main>
   );
 }

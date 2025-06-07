@@ -4,8 +4,8 @@ import Main from "./Main.tsx";
 export default function App() {
   return (
     <>
-      <Header/>
-      <Main/>
+      <Header />
+      <Main />
     </>
   );
 }
