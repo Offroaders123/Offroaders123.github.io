@@ -16,3 +16,14 @@
     margin: 1em;
   }
 }
+
+.Release-Dialog {
+  pre {
+    white-space: pre-wrap;
+  }
+
+  button {
+    position: sticky;
+    bottom: 0;
+  }
+}
