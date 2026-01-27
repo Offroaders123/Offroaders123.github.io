@@ -3,62 +3,71 @@
 // It's in an IIFE because this is also meant to be run in DevTools, and it is complex enough to need functions, and
 // not worrying about the global scope really helps.
 
+import type * as bandcamp from "./bandcamp.ts";
+
+type Release = bandcamp.Release & {
+  path: string;
+  artwork: string;
+  artwork_web: string;
+  tracks: () => Promise<bandcamp.TrAlbum>;
+};
+
 (async () => {
-  const getInitialValues = (() => {
-    let value;
-    return () => {
+  const getInitialValues: () => bandcamp.Release[] = (() => {
+    let value: bandcamp.Release[];
+    return (): bandcamp.Release[] => {
       if (value === undefined) {
-        value = JSON.parse(document.querySelector("#music-grid").dataset.initialValues);
+        value = JSON.parse(document.querySelector<HTMLOListElement>("#music-grid")!.dataset["initialValues"]!) as bandcamp.Release[];
       }
       return value;
     };
   })();
-  function getMusicGrid() {
-    return document.querySelector("#music-grid:first-child");
+  function getMusicGrid(): HTMLOListElement {
+    return document.querySelector<HTMLOListElement>("#music-grid:first-child")!;
   }
-  function getMusicGridItems() {
-    return getMusicGrid().querySelectorAll(".music-grid-item");
+  function getMusicGridItems(): HTMLLIElement[] {
+    return [...getMusicGrid().querySelectorAll<HTMLLIElement>(".music-grid-item")!];
   }
   function getReleases() {
-    return [...getMusicGridItems()].map(musicGridItem => getRelease(musicGridItem));
+    return getMusicGridItems().map(musicGridItem => getRelease(musicGridItem));
   }
-  function getRelease(musicGridItem) {
-    const path = musicGridItem.querySelector(":scope > a").href;
-    const tracks = getTracks(path);
-    const artwork_web = musicGridItem.querySelector("img").src;
-    const { type, title, band_name, artist, page_url, publish_date, release_date, id, art_id, band_id } = getInitialValues()
-      .find(initialValue => path.endsWith(initialValue.page_url));
-    const artwork = `https://f4.bcbits.com/img/a0${art_id}_0.jpg`;
+  function getRelease(musicGridItem: HTMLLIElement): Release {
+    const path: string = musicGridItem.querySelector<HTMLAnchorElement>(":scope > a")!.href;
+    const tracks: () => Promise<bandcamp.TrAlbum> = getTracks(path);
+    const artwork_web: string = musicGridItem.querySelector("img")!.src;
+    const { type, title, band_name, artist, page_url, publish_date, release_date, id, art_id, band_id }: bandcamp.Release = getInitialValues()
+      .find(initialValue => path.endsWith(initialValue.page_url))!;
+    const artwork: string = `https://f4.bcbits.com/img/a0${art_id}_0.jpg`;
     return { type, title, band_name, artist, page_url, publish_date, release_date, path, artwork, artwork_web, id, art_id, band_id, tracks };
   }
-  function getTracks(path) {
-    return async () => {
-      const doc = await fetchPage(path);
-      const tralbumRef = doc.querySelector("[data-tralbum]");
-      const { current: { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc }, trackinfo } = JSON.parse(tralbumRef.dataset.tralbum);
+  function getTracks(path: string): () => Promise<bandcamp.TrAlbum> {
+    return async (): Promise<bandcamp.TrAlbum> => {
+      const doc: Document = await fetchPage(path);
+      const tralbumRef: HTMLScriptElement = doc.querySelector<HTMLScriptElement>("[data-tralbum]")!;
+      const { current: { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc }, trackinfo } = JSON.parse(tralbumRef.dataset["tralbum"]!);
       const tracksInfo = trackinfo.map(({ duration, title, title_link, track_id, track_num }) => ({ duration, title, title_link, track_id, track_num, lyrics: getLyrics(title_link) }));
       return { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc, tracksInfo };
     };
   }
-  function getLyrics(path) {
+  function getLyrics(path: string) {
     return async () => {
-      const doc = await fetchPage(path);
-      const tralbumRef = doc.querySelector("[data-tralbum]");
-      const { current: { about, isrc, lyrics, minimum_price, mod_date, new_date, publish_date, release_date, title, track_number, type }, id } = JSON.parse(tralbumRef.dataset.tralbum);
+      const doc: Document = await fetchPage(path);
+      const tralbumRef: HTMLScriptElement = doc.querySelector<HTMLScriptElement>("[data-tralbum]")!;
+      const { current: { about, isrc, lyrics, minimum_price, mod_date, new_date, publish_date, release_date, title, track_number, type }, id } = JSON.parse(tralbumRef.dataset["tralbum"]!);
       return { about, id, isrc, lyrics, minimum_price, mod_date, new_date, publish_date, release_date, title, track_number, type };
     };
   }
-  async function fetchPage(path) {
-    const parser = new DOMParser();
-    const response = await fetch(path);
-    const text = await response.text();
+  async function fetchPage(path: string): Promise<Document> {
+    const parser: DOMParser = new DOMParser();
+    const response: Response = await fetch(path);
+    const text: string = await response.text();
     return parser.parseFromString(text, "text/html");
   }
 
-  const releases = getReleases();
+  const releases: Release[] = getReleases();
   console.log(releases);
 
-  const albumsTracks = await Promise.all(releases.map(release => release.tracks()));
+  const albumsTracks: bandcamp.TrAlbum[] = await Promise.all(releases.map(release => release.tracks()));
   console.log(albumsTracks);
 
   for (const album of albumsTracks) {
