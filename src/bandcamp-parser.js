@@ -24,13 +24,31 @@
   }
   function getRelease(musicGridItem) {
     const path = musicGridItem.querySelector(":scope > a").href;
+    const tracks = getTracks(path);
     const artwork_web = musicGridItem.querySelector("img").src;
     const { type, title, band_name, artist, page_url, publish_date, release_date, id, art_id, band_id } = getInitialValues()
       .find(initialValue => path.endsWith(initialValue.page_url));
     const artwork = `https://f4.bcbits.com/img/a0${art_id}_0.jpg`;
-    return { type, title, band_name, artist, page_url, publish_date, release_date, path, artwork, artwork_web, id, art_id, band_id };
+    return { type, title, band_name, artist, page_url, publish_date, release_date, path, artwork, artwork_web, id, art_id, band_id, tracks };
+  }
+  function getTracks(path) {
+    return async () => {
+      const doc = await fetchPage(path);
+      const tralbumRef = doc.querySelector("[data-tralbum]");
+      return JSON.parse(tralbumRef.dataset.tralbum);
+    };
+  }
+  async function fetchPage(path) {
+    const parser = new DOMParser();
+    const response = await fetch(path);
+    const text = await response.text();
+    return parser.parseFromString(text, "text/html");
   }
 
   const releases = getReleases();
   console.log(releases);
+
+  for (const release of releases) {
+    release.tracks().then(console.log);
+  }
 })();
