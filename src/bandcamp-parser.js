@@ -44,8 +44,8 @@
     return async () => {
       const doc = await fetchPage(path);
       const tralbumRef = doc.querySelector("[data-tralbum]");
-      const { id, isrc, lyrics, minimum_price, mod_date, new_date, publish_date, title, track_number } = JSON.parse(tralbumRef.dataset.tralbum);
-      return { id, isrc, lyrics, minimum_price, mod_date, new_date, publish_date, title, track_number };
+      const { current: { about, isrc, lyrics, minimum_price, mod_date, new_date, publish_date, release_date, title, track_number, type }, id } = JSON.parse(tralbumRef.dataset.tralbum);
+      return { about, id, isrc, lyrics, minimum_price, mod_date, new_date, publish_date, release_date, title, track_number, type };
     };
   }
   async function fetchPage(path) {
