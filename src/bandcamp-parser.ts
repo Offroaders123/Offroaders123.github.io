@@ -93,9 +93,16 @@ type LyricsInfo = Pick<bandcamp.TrAlbumData["current"], "about" | "id" | "isrc" 
   const albumsTracks: TrAlbum[] = await Promise.all(releases.map(release => release.tracks()));
   console.log(albumsTracks);
 
+  const lyricsInfos: LyricsInfo[][] = [];
+
   for (const album of albumsTracks) {
+    await new Promise(resolve => setTimeout(resolve, 20000));
     const lyricsInfo: LyricsInfo[] = await Promise.all(album.tracksInfo.map(trackInfo => trackInfo.lyrics()));
     console.log(lyricsInfo);
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    lyricsInfos.push(lyricsInfo);
   }
+
+  const result = { releases, albumsTracks, lyricsInfos };
+  console.log(result);
+  return result;
 })();
