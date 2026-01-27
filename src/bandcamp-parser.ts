@@ -9,8 +9,28 @@ type Release = bandcamp.Release & {
   path: string;
   artwork: string;
   artwork_web: string;
-  tracks: () => Promise<bandcamp.TrAlbum>;
+  tracks: () => Promise<TrAlbum>;
 };
+
+interface TrAlbum {
+  about: string | null;
+  credits: string | null;
+  minimum_price: number;
+  mod_date: string;
+  new_date: string;
+  publish_date: string;
+  release_date: string;
+  upc?: string | null;
+  tracksInfo: TrackInfo[];
+}
+
+interface TrackInfo {
+  duration: number;
+  title: string;
+  title_link: string;
+  track_id: number;
+  track_num: number | null;
+}
 
 (async () => {
   const getInitialValues: () => bandcamp.Release[] = (() => {
@@ -33,19 +53,19 @@ type Release = bandcamp.Release & {
   }
   function getRelease(musicGridItem: HTMLLIElement): Release {
     const path: string = musicGridItem.querySelector<HTMLAnchorElement>(":scope > a")!.href;
-    const tracks: () => Promise<bandcamp.TrAlbum> = getTracks(path);
+    const tracks: () => Promise<TrAlbum> = getTracks(path);
     const artwork_web: string = musicGridItem.querySelector("img")!.src;
     const { type, title, band_name, artist, page_url, publish_date, release_date, id, art_id, band_id }: bandcamp.Release = getInitialValues()
       .find(initialValue => path.endsWith(initialValue.page_url))!;
     const artwork: string = `https://f4.bcbits.com/img/a0${art_id}_0.jpg`;
     return { type, title, band_name, artist, page_url, publish_date, release_date, path, artwork, artwork_web, id, art_id, band_id, tracks };
   }
-  function getTracks(path: string): () => Promise<bandcamp.TrAlbum> {
-    return async (): Promise<bandcamp.TrAlbum> => {
+  function getTracks(path: string): () => Promise<TrAlbum> {
+    return async (): Promise<TrAlbum> => {
       const doc: Document = await fetchPage(path);
       const tralbumRef: HTMLScriptElement = doc.querySelector<HTMLScriptElement>("[data-tralbum]")!;
-      const { current: { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc }, trackinfo } = JSON.parse(tralbumRef.dataset["tralbum"]!);
-      const tracksInfo = trackinfo.map(({ duration, title, title_link, track_id, track_num }) => ({ duration, title, title_link, track_id, track_num, lyrics: getLyrics(title_link) }));
+      const { current: { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc }, trackinfo }: bandcamp.TrAlbumData = JSON.parse(tralbumRef.dataset["tralbum"]!) as bandcamp.TrAlbumData;
+      const tracksInfo: TrackInfo[] = trackinfo.map(({ duration, title, title_link, track_id, track_num }) => ({ duration, title, title_link, track_id, track_num, lyrics: getLyrics(title_link) }));
       return { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc, tracksInfo };
     };
   }
@@ -67,7 +87,7 @@ type Release = bandcamp.Release & {
   const releases: Release[] = getReleases();
   console.log(releases);
 
-  const albumsTracks: bandcamp.TrAlbum[] = await Promise.all(releases.map(release => release.tracks()));
+  const albumsTracks: TrAlbum[] = await Promise.all(releases.map(release => release.tracks()));
   console.log(albumsTracks);
 
   for (const album of albumsTracks) {
