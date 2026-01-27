@@ -30,8 +30,10 @@ interface TrackInfo {
   title_link: string;
   track_id: number;
   track_num: number | null;
-  lyrics: () => Promise<unknown>;
+  lyrics: () => Promise<LyricsInfo>;
 }
+
+type LyricsInfo = Pick<bandcamp.TrAlbumData["current"], "about" | "id" | "isrc" | "lyrics" | "minimum_price" | "mod_date" | "new_date" | "publish_date" | "release_date" | "title" | "track_number" | "type">;
 
 (async () => {
   const getInitialValues: () => bandcamp.Release[] = (() => {
@@ -70,8 +72,8 @@ interface TrackInfo {
       return { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc, tracksInfo };
     };
   }
-  function getLyrics(path: string) {
-    return async () => {
+  function getLyrics(path: string): () => Promise<LyricsInfo> {
+    return async (): Promise<LyricsInfo> => {
       const doc: Document = await fetchPage(path);
       const tralbumRef: HTMLScriptElement = doc.querySelector<HTMLScriptElement>("[data-tralbum]")!;
       const { current: { about, isrc, lyrics, minimum_price, mod_date, new_date, publish_date, release_date, title, track_number, type }, id }: bandcamp.TrAlbumData = JSON.parse(tralbumRef.dataset["tralbum"]!) as bandcamp.TrAlbumData;
@@ -92,7 +94,7 @@ interface TrackInfo {
   console.log(albumsTracks);
 
   for (const album of albumsTracks) {
-    const lyricsInfo = await Promise.all(album.tracksInfo.map(trackInfo => trackInfo.lyrics()));
+    const lyricsInfo: LyricsInfo[] = await Promise.all(album.tracksInfo.map(trackInfo => trackInfo.lyrics()));
     console.log(lyricsInfo);
     await new Promise(resolve => setTimeout(resolve, 5000));
   }
