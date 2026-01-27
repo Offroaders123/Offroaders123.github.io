@@ -25,9 +25,9 @@
   function getRelease(musicGridItem) {
     const path = musicGridItem.querySelector(":scope > a").href;
     const artwork_web = musicGridItem.querySelector("img").src;
-    const { type, title, band_name, artist, page_url, publish_date, release_date, art_id } = getInitialValues().find(initialValue => path.endsWith(initialValue.page_url));
+    const { type, title, band_name, artist, page_url, publish_date, release_date, id, art_id, band_id } = getInitialValues().find(initialValue => path.endsWith(initialValue.page_url));
     const artwork = `https://f4.bcbits.com/img/a0${art_id}_0.jpg`;
-    return { type, title, band_name, artist, page_url, publish_date, release_date, path, artwork, artwork_web };
+    return { type, title, band_name, artist, page_url, publish_date, release_date, path, artwork, artwork_web, id, art_id, band_id };
   }
 
   // const initialValues = getInitialValues();
