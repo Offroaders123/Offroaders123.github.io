@@ -30,6 +30,7 @@ interface TrackInfo {
   title_link: string;
   track_id: number;
   track_num: number | null;
+  lyrics: () => Promise<unknown>;
 }
 
 (async () => {
@@ -65,7 +66,7 @@ interface TrackInfo {
       const doc: Document = await fetchPage(path);
       const tralbumRef: HTMLScriptElement = doc.querySelector<HTMLScriptElement>("[data-tralbum]")!;
       const { current: { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc }, trackinfo }: bandcamp.TrAlbumData = JSON.parse(tralbumRef.dataset["tralbum"]!) as bandcamp.TrAlbumData;
-      const tracksInfo: TrackInfo[] = trackinfo.map(({ duration, title, title_link, track_id, track_num }) => ({ duration, title, title_link, track_id, track_num, lyrics: getLyrics(title_link) }));
+      const tracksInfo: TrackInfo[] = trackinfo.map(({ duration, title, title_link, track_id, track_num }) => ({ duration, title, title_link, track_id, track_num, lyrics: getLyrics(title_link) } satisfies TrackInfo));
       return { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc, tracksInfo };
     };
   }
@@ -73,7 +74,7 @@ interface TrackInfo {
     return async () => {
       const doc: Document = await fetchPage(path);
       const tralbumRef: HTMLScriptElement = doc.querySelector<HTMLScriptElement>("[data-tralbum]")!;
-      const { current: { about, isrc, lyrics, minimum_price, mod_date, new_date, publish_date, release_date, title, track_number, type }, id } = JSON.parse(tralbumRef.dataset["tralbum"]!);
+      const { current: { about, isrc, lyrics, minimum_price, mod_date, new_date, publish_date, release_date, title, track_number, type }, id }: bandcamp.TrAlbumData = JSON.parse(tralbumRef.dataset["tralbum"]!) as bandcamp.TrAlbumData;
       return { about, id, isrc, lyrics, minimum_price, mod_date, new_date, publish_date, release_date, title, track_number, type };
     };
   }
