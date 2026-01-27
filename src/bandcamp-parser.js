@@ -36,8 +36,8 @@
       const doc = await fetchPage(path);
       const tralbumRef = doc.querySelector("[data-tralbum]");
       const { current: { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc }, trackinfo } = JSON.parse(tralbumRef.dataset.tralbum);
-      const tracks = trackinfo.map(({ duration, title, title_link, track_id, track_num }) => ({ duration, title, title_link, track_id, track_num, lyrics: getLyrics(title_link) }));
-      return { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc, tracks };
+      const tracksInfo = trackinfo.map(({ duration, title, title_link, track_id, track_num }) => ({ duration, title, title_link, track_id, track_num, lyrics: getLyrics(title_link) }));
+      return { about, credits, minimum_price, mod_date, new_date, publish_date, release_date, upc, tracksInfo };
     };
   }
   function getLyrics(path) {
@@ -58,6 +58,11 @@
   const releases = getReleases();
   console.log(releases);
 
-  const tracks = await Promise.all(releases.map(release => release.tracks()));
-  console.log(tracks);
+  const albumsTracks = await Promise.all(releases.map(release => release.tracks()));
+  console.log(albumsTracks);
+
+  for (const album of albumsTracks) {
+    const lyricsInfo = await Promise.all(album.tracksInfo.map(trackInfo => trackInfo.lyrics()));
+    console.log(lyricsInfo);
+  }
 })();
