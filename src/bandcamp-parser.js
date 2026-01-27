@@ -58,7 +58,6 @@
   const releases = getReleases();
   console.log(releases);
 
-  for (const release of releases) {
-    release.tracks().then(console.log);
-  }
+  const tracks = await Promise.all(releases.map(release => release.tracks()));
+  console.log(tracks);
 })();
