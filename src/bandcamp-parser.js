@@ -64,5 +64,6 @@
   for (const album of albumsTracks) {
     const lyricsInfo = await Promise.all(album.tracksInfo.map(trackInfo => trackInfo.lyrics()));
     console.log(lyricsInfo);
+    await new Promise(resolve => setTimeout(resolve, 5000));
   }
 })();
