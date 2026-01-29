@@ -1,28 +1,23 @@
 import { createResource, For, type ResourceReturn } from "solid-js";
-import bandcampDataPath from "/bandcamp-data.json?url";
-import releaseDataPath from "/release-data.json?url";
-import type { Release as BandcampRelease } from "./bandcamp.ts";
-import type { Release as ReleaseInfo } from "./release.ts";
+import discographyDataPath from "/discography.json?url";
 import Release from "./Release.tsx";
 import "./Discography.css";
 
+type DiscographyData = typeof import("../public/discography.json");
+
 export default function Discography() {
-  const [bandcampData]: ResourceReturn<BandcampRelease[], unknown> = createResource(async () => {
-    const response: Response = await fetch(bandcampDataPath);
-    return await response.json() as BandcampRelease[];
-  });
-  const [releaseData]: ResourceReturn<ReleaseInfo[], unknown> = createResource(async () => {
-    const response: Response = await fetch(releaseDataPath);
-    return await response.json() as ReleaseInfo[];
+  const [discographyData]: ResourceReturn<DiscographyData, unknown> = createResource(async () => {
+    const response: Response = await fetch(discographyDataPath);
+    return await response.json() as DiscographyData;
   });
 
   return (
     <div class="Discography">
-      <For each={bandcampData()}>
-        {release => (
+      <For each={discographyData()?.releases}>
+        {(release, i) => (
           <Release
             {...release}
-            description={releaseData()?.find(data => data.name === release.title)?.description}
+            description={discographyData()?.albumsTracks[i()]!.about}
           />
         )}
       </For>

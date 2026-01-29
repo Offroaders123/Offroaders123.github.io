@@ -1,7 +1,12 @@
 import { createEffect, createSignal, type Signal } from "solid-js";
 import type { MusicLike } from "./bandcamp.ts";
-import type { Release as ReleaseInfo } from "./release.ts";
 import "./Release.css";
+
+interface ReleaseInfo {
+  name: string;
+  dateReleased: string;
+  description?: string | null;
+}
 
 export interface ReleaseProps extends Pick<MusicLike & ReleaseInfo, "title" | "description" | "publish_date" | "release_date" | "page_url"> { }
 
