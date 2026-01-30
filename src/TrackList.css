@@ -14,5 +14,10 @@
       margin-right: 1em;
       opacity: 0.55;
     }
+
+    .duration {
+      float: right;
+      opacity: 0.55;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { type Accessor, createEffect, type Setter, Show } from "solid-js";
+import { type Accessor, createEffect, type Setter } from "solid-js";
 import type { ReleaseProps } from "./Release.tsx";
 import { TrackList } from "./TrackList.tsx";
 import "./ReleaseDialog.css";
@@ -32,9 +32,7 @@ export default function ReleaseDialog(props: ReleaseDialogProps) {
           loading="lazy"
         />
         <p><a href={`https://rbnaodn.bandcamp.com${props.page_url}`}>{props.title}</a></p>
-        <Show when={props.type === "album"}>
-          <TrackList {...props} />
-        </Show>
+        <TrackList {...props} />
         <pre>{props.about}</pre>
         <button type="submit">Close</button>
       </form>
