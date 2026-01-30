@@ -4,7 +4,7 @@ import type { ReleaseProps } from "./Release.tsx";
 import { TrackList } from "./TrackList.tsx";
 import "./ReleaseDialog.css";
 
-export interface ReleaseDialogProps extends ReleaseProps {
+export type ReleaseDialogProps = ReleaseProps & {
   showDialog: Accessor<boolean>;
   setShowDialog: Setter<boolean>;
   imgSrc: string;
@@ -32,9 +32,10 @@ export default function ReleaseDialog(props: ReleaseDialogProps) {
           alt={props.title}
           loading="lazy"
         />
-        <p><a href={`https://rbnaodn.bandcamp.com${props.page_url}`}>{props.title}</a></p>
-        <TrackList {...props} />
+        <h2>{props.artist ?? props.band_name}</h2>
+        <h3><a href={`https://rbnaodn.bandcamp.com${props.page_url}`}>{props.title}</a></h3>
         <Elapsed {...props} />
+        <TrackList {...props} />
         <pre>{props.about}</pre>
         <button type="submit">Close</button>
       </form>
