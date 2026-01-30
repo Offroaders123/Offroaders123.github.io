@@ -4,21 +4,22 @@
 // not worrying about the global scope really helps.
 
 import type * as bandcamp from "./bandcamp.ts";
+import type { Release, Track } from "./discography.ts";
 
-export interface ParserResult {
-  releases: Release[];
+interface ParserResult {
+  releases: ParserRelease[];
   albumsTracks: TrAlbum[];
   lyricsInfos: LyricsInfo[][];
 }
 
-export type Release = bandcamp.Release & {
+type ParserRelease = bandcamp.Release & {
   path: string;
   artwork: string;
   artwork_web: string;
   tracks?: () => Promise<TrAlbum>;
 };
 
-export interface TrAlbum {
+interface TrAlbum {
   about: string | null;
   credits: string | null;
   minimum_price: number;
@@ -30,7 +31,7 @@ export interface TrAlbum {
   tracksInfo: TrackInfo[];
 }
 
-export interface TrackInfo {
+interface TrackInfo {
   duration: number;
   title: string;
   title_link: string;
@@ -39,9 +40,9 @@ export interface TrackInfo {
   lyrics?: () => Promise<LyricsInfo>;
 }
 
-export type LyricsInfo = Pick<bandcamp.TrAlbumData["current"], "about" | "id" | "isrc" | "lyrics" | "minimum_price" | "mod_date" | "new_date" | "publish_date" | "release_date" | "title" | "track_number" | "type">;
+type LyricsInfo = Pick<bandcamp.TrAlbumData["current"], "about" | "id" | "isrc" | "lyrics" | "minimum_price" | "mod_date" | "new_date" | "publish_date" | "release_date" | "title" | "track_number" | "type">;
 
-(async (): Promise<ParserResult> => {
+(async (): Promise<Release[]> => {
   const getInitialValues: () => bandcamp.Release[] = (() => {
     let value: bandcamp.Release[];
     return (): bandcamp.Release[] => {
@@ -60,7 +61,7 @@ export type LyricsInfo = Pick<bandcamp.TrAlbumData["current"], "about" | "id" | 
   function getReleases() {
     return getMusicGridItems().map(musicGridItem => getRelease(musicGridItem));
   }
-  function getRelease(musicGridItem: HTMLLIElement): Release {
+  function getRelease(musicGridItem: HTMLLIElement): ParserRelease {
     const path: string = musicGridItem.querySelector<HTMLAnchorElement>(":scope > a")!.href;
     const tracks: () => Promise<TrAlbum> = getTracks(path);
     const artwork_web: string = musicGridItem.querySelector("img")!.src;
@@ -93,7 +94,7 @@ export type LyricsInfo = Pick<bandcamp.TrAlbumData["current"], "about" | "id" | 
     return parser.parseFromString(text, "text/html");
   }
 
-  const releases: Release[] = getReleases();
+  const releases: ParserRelease[] = getReleases();
   console.log(releases);
 
   const albumsTracks: TrAlbum[] = await Promise.all(releases.map(release => release.tracks!()));
@@ -108,7 +109,22 @@ export type LyricsInfo = Pick<bandcamp.TrAlbumData["current"], "about" | "id" | 
     lyricsInfos.push(lyricsInfo);
   }
 
-  const result: ParserResult = { releases, albumsTracks, lyricsInfos };
+  const result: Release[] = consolidateResult({ releases, albumsTracks, lyricsInfos });
   console.log(result);
   return result;
 })();
+
+function consolidateResult(discographyData: ParserResult): Release[] {
+  return discographyData.releases.map((release: ParserRelease, i: number): Release => {
+    const albumTracks: TrAlbum = discographyData.albumsTracks[i]!;
+    const lyricsInfos: LyricsInfo[] = discographyData.lyricsInfos[i]!;
+    return {
+      ...release,
+      ...albumTracks,
+      tracksInfo: albumTracks.tracksInfo
+        .map(({ lyrics: _lyrics, ...info }: TrackInfo, i: number): Track =>
+          ({ ...info, ...lyricsInfos[i]! })
+        )
+    };
+  });
+}
