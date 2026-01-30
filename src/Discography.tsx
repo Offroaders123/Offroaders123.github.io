@@ -1,9 +1,10 @@
 import { createResource, For, type ResourceReturn } from "solid-js";
 import discographyDataPath from "/discography.json?url";
 import Release from "./Release.tsx";
+import type { Release as DiscographyRelease } from "./discography.ts";
 import "./Discography.css";
 
-type DiscographyData = typeof import("../public/discography.json");
+type DiscographyData = DiscographyRelease[];
 
 export default function Discography() {
   const [discographyData]: ResourceReturn<DiscographyData, unknown> = createResource(async () => {
@@ -13,13 +14,8 @@ export default function Discography() {
 
   return (
     <div class="Discography">
-      <For each={discographyData()?.releases}>
-        {(release, i) => (
-          <Release
-            {...release}
-            description={discographyData()?.albumsTracks[i()]!.about}
-          />
-        )}
+      <For each={discographyData()}>
+        {release => <Release {...release} />}
       </For>
     </div>
   );

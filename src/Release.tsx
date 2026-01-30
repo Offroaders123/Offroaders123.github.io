@@ -1,14 +1,8 @@
 import { createEffect, createSignal, type Signal } from "solid-js";
-import type { MusicLike } from "./bandcamp.ts";
+import type { Release } from "./discography.ts";
 import "./Release.css";
 
-interface ReleaseInfo {
-  name: string;
-  dateReleased: string;
-  description?: string | null;
-}
-
-export interface ReleaseProps extends Pick<MusicLike & ReleaseInfo, "title" | "description" | "publish_date" | "release_date" | "page_url"> { }
+export type ReleaseProps = Pick<Release, "title" | "about" | "page_url">;
 
 export default function Release(props: ReleaseProps) {
   let dialog: HTMLDialogElement;
@@ -49,7 +43,7 @@ export default function Release(props: ReleaseProps) {
             loading="lazy"
           />
           <p><a href={`https://rbnaodn.bandcamp.com${props.page_url}`}>{props.title}</a></p>
-          <pre>{props.description}</pre>
+          <pre>{props.about}</pre>
           <button type="submit">Close</button>
         </form>
       </dialog>
