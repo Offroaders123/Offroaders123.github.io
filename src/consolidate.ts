@@ -13,11 +13,9 @@ const consolidated = discographyData.releases.map((release: Release, i: number) 
   const lyricsInfos: LyricsInfo[] = discographyData.lyricsInfos[i]!;
   return {
     ...release,
-    ...{
-      ...albumTracks,
-      tracks: lyricsInfos
-    }
+    ...albumTracks,
+    tracksInfo: albumTracks.tracksInfo.map((info, i) => ({ ...info, ...lyricsInfos[i]! }))
   };
 });
 
-console.log(consolidated);
+console.dir(consolidated, { depth: null });
