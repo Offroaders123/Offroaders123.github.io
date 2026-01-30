@@ -5,6 +5,12 @@
 
 import type * as bandcamp from "./bandcamp.ts";
 
+export interface ParserResult {
+  releases: Release[];
+  albumsTracks: TrAlbum[];
+  lyricsInfos: LyricsInfo[][];
+}
+
 type Release = bandcamp.Release & {
   path: string;
   artwork: string;
@@ -35,7 +41,7 @@ interface TrackInfo {
 
 type LyricsInfo = Pick<bandcamp.TrAlbumData["current"], "about" | "id" | "isrc" | "lyrics" | "minimum_price" | "mod_date" | "new_date" | "publish_date" | "release_date" | "title" | "track_number" | "type">;
 
-(async () => {
+(async (): Promise<ParserResult> => {
   const getInitialValues: () => bandcamp.Release[] = (() => {
     let value: bandcamp.Release[];
     return (): bandcamp.Release[] => {
@@ -102,7 +108,7 @@ type LyricsInfo = Pick<bandcamp.TrAlbumData["current"], "about" | "id" | "isrc" 
     lyricsInfos.push(lyricsInfo);
   }
 
-  const result = { releases, albumsTracks, lyricsInfos };
+  const result: ParserResult = { releases, albumsTracks, lyricsInfos };
   console.log(result);
   return result;
 })();
