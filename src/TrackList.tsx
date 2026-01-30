@@ -27,11 +27,15 @@ export function TrackList(props: ReleaseProps) {
 
 /**
  * Converts from a number derived of seconds, into
- * an MM:SS string.
+ * an MM:SS or HH:MM:SS string as applicable.
  */
-function secondsToDuration(span: number): string {
+export function secondsToDuration(span: number): string {
   span = Math.round(span);
-  const minutes: number = Math.floor(span / 60);
+  const hours: number = span / 3600 | 0;
+  const minutes: number = (span % 3600) / 60 | 0;
   const seconds: number = span % 60;
+  if (hours > 0) {
+    return `${hours}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+  }
   return `${minutes}:${String(seconds).padStart(2, "0")}`;
 }
