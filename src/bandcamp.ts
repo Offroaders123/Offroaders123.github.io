@@ -60,15 +60,15 @@ export interface TrAlbumData {
     selling_band_id: number;
     art_id: number;
     download_desc_id: null;
-    track_number?: null;
-    release_date: string;
+    track_number?: number | null;
+    release_date: string | null;
     file_name?: null;
     lyrics?: string | null;
     album_id?: null;
     encodings_id?: number;
     pending_encodings_id?: null;
     license_type?: number;
-    isrc?: null;
+    isrc?: string | null;
     preorder_download?: null;
     streaming?: number;
     upc?: string | null;
