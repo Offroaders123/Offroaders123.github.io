@@ -1,12 +1,6 @@
-import discographyData from "../public/discography-old.json" with { type: "json" };
+import type { LyricsInfo, ParserResult, Release, TrAlbum } from "./bandcamp-parser.ts";
 
-type DiscographyData = typeof discographyData;
-
-type Release = DiscographyData["releases"][number];
-
-type AlbumTracks = DiscographyData["albumsTracks"][number];
-
-type LyricsInfo = DiscographyData["lyricsInfos"][number][number];
+declare const discographyData: ParserResult;
 
 // `consolidated` is valid against the type `Release[]` from `discography.ts`.
 // It merely doesn't pass because `type` is `string` vs `"album" | "track"`.
@@ -15,7 +9,7 @@ type LyricsInfo = DiscographyData["lyricsInfos"][number][number];
 // that everything is fully type-safe both directions.
 // I tested everything against the old `discography-old.json` file (non-consolidated).
 const consolidated = discographyData.releases.map((release: Release, i: number) => {
-  const albumTracks: AlbumTracks = discographyData.albumsTracks[i]!;
+  const albumTracks: TrAlbum = discographyData.albumsTracks[i]!;
   const lyricsInfos: LyricsInfo[] = discographyData.lyricsInfos[i]!;
   return {
     ...release,

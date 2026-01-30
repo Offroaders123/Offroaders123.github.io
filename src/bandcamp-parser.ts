@@ -11,14 +11,14 @@ export interface ParserResult {
   lyricsInfos: LyricsInfo[][];
 }
 
-type Release = bandcamp.Release & {
+export type Release = bandcamp.Release & {
   path: string;
   artwork: string;
   artwork_web: string;
   tracks?: () => Promise<TrAlbum>;
 };
 
-interface TrAlbum {
+export interface TrAlbum {
   about: string | null;
   credits: string | null;
   minimum_price: number;
@@ -30,7 +30,7 @@ interface TrAlbum {
   tracksInfo: TrackInfo[];
 }
 
-interface TrackInfo {
+export interface TrackInfo {
   duration: number;
   title: string;
   title_link: string;
@@ -39,7 +39,7 @@ interface TrackInfo {
   lyrics?: () => Promise<LyricsInfo>;
 }
 
-type LyricsInfo = Pick<bandcamp.TrAlbumData["current"], "about" | "id" | "isrc" | "lyrics" | "minimum_price" | "mod_date" | "new_date" | "publish_date" | "release_date" | "title" | "track_number" | "type">;
+export type LyricsInfo = Pick<bandcamp.TrAlbumData["current"], "about" | "id" | "isrc" | "lyrics" | "minimum_price" | "mod_date" | "new_date" | "publish_date" | "release_date" | "title" | "track_number" | "type">;
 
 (async (): Promise<ParserResult> => {
   const getInitialValues: () => bandcamp.Release[] = (() => {
