@@ -18,7 +18,7 @@ export interface ReleaseLike {
   artist: string | null;
   page_url: string;
   publish_date: string;
-  release_date: string;
+  release_date: string | null;
   path: string;
   artwork: string;
   artwork_web: string;
@@ -42,13 +42,13 @@ export interface Track {
   track_num: number | null;
   about: string | null;
   id: number;
-  isrc: string | null;
-  lyrics: string | null;
+  isrc?: string | null;
+  lyrics?: string | null;
   minimum_price: number;
   mod_date: string;
   new_date: string;
   publish_date: string;
   release_date: string | null;
-  track_number: number | null;
-  type: "track";
+  track_number?: number | null;
+  type: "album" | "track";
 }
