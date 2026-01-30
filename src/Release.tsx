@@ -3,7 +3,7 @@ import type { Release } from "./discography.ts";
 import ReleaseDialog from "./ReleaseDialog.tsx";
 import "./Release.css";
 
-export interface ReleaseProps extends Pick<Release, "title" | "about" | "page_url"> { }
+export interface ReleaseProps extends Pick<Release, "type" | "title" | "about" | "page_url" | "tracksInfo"> { }
 
 export default function Release(props: ReleaseProps) {
   const [showDialog, setShowDialog]: Signal<boolean> = createSignal<boolean>(false);

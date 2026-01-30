@@ -1,0 +1,18 @@
+.Track-List {
+  font-size: 0.9em;
+
+  p {
+    margin: 0;
+    padding: 0.5em 1em;
+
+    &:nth-child(even) {
+      background-color: #80808030;
+    }
+
+    &::before {
+      content: attr(data-track-number);
+      margin-right: 1em;
+      opacity: 0.55;
+    }
+  }
+}
