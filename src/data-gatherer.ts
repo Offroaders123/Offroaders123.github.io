@@ -1,5 +1,5 @@
-import data from "./public/discography.json" with { type: "json" };
-import type { Release } from "./src/discography.ts";
+import data from "../public/discography.json" with { type: "json" };
+import type { Release } from "./discography.ts";
 
 const discographyData: Release[] = data as Release[];
 // console.log(discographyData);
