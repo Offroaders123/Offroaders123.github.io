@@ -1,17 +1,115 @@
 [
   {
-    "release_date": "19 Jan 2026 00:00:00 GMT",
+    "release_date": "11 Sep 2026 00:00:00 GMT",
+    "type": "track",
+    "title": "Motherfucker",
+    "tracks": 1,
+    "duration": "4:19"
+  },
+  {
+    "release_date": "07 Aug 2026 00:00:00 GMT",
+    "type": "album",
+    "title": "Recreational Outrage: Volume Three",
+    "tracks": 10,
+    "duration": "1:00:00"
+  },
+  {
+    "release_date": "07 Jul 2026 00:00:00 GMT",
+    "type": "track",
+    "title": "Pasta in Montana",
+    "tracks": 1,
+    "duration": "19:43"
+  },
+  {
+    "release_date": "06 Jul 2026 00:00:00 GMT",
+    "type": "album",
+    "title": "BARKING AT BABIES",
+    "tracks": 7,
+    "duration": "14:35"
+  },
+  {
+    "release_date": "29 Jun 2026 00:00:00 GMT",
+    "type": "track",
+    "title": "Left Alone",
+    "tracks": 1,
+    "duration": "5:22"
+  },
+  {
+    "release_date": "28 Jun 2026 01:56:50 GMT",
+    "type": "track",
+    "title": "Sixdy Seven",
+    "tracks": 1,
+    "duration": "2:32"
+  },
+  {
+    "release_date": "19 Jun 2026 00:00:00 GMT",
+    "type": "album",
+    "title": "More Alone at Home",
+    "tracks": 9,
+    "duration": "29:56"
+  },
+  {
+    "release_date": "05 May 2026 00:00:00 GMT",
+    "type": "album",
+    "title": "Fuckton of Shit",
+    "tracks": 2,
+    "duration": "12:01"
+  },
+  {
+    "release_date": "15 Apr 2026 00:00:00 GMT",
+    "type": "album",
+    "title": "Half Awake",
+    "tracks": 3,
+    "duration": "44:36"
+  },
+  {
+    "release_date": "21 May 2026 00:00:00 GMT",
+    "type": "album",
+    "title": "Variation 6",
+    "tracks": 4,
+    "duration": "9:25"
+  },
+  {
+    "release_date": "31 Mar 2026 00:00:00 GMT",
+    "type": "album",
+    "title": "Jung-L-Gym",
+    "tracks": 5,
+    "duration": "25:35"
+  },
+  {
+    "release_date": "07 Apr 2026 00:00:00 GMT",
+    "type": "track",
+    "title": "Mudflap",
+    "tracks": 1,
+    "duration": "12:18"
+  },
+  {
+    "release_date": "25 Apr 2026 00:00:00 GMT",
+    "type": "album",
+    "title": "Recreational Outrage 2",
+    "tracks": 13,
+    "duration": "39:16"
+  },
+  {
+    "release_date": "05 Feb 2026 00:00:00 GMT",
+    "type": "album",
+    "title": "Made in merica (2026 Remaster)",
+    "tracks": 9,
+    "duration": "24:17"
+  },
+  {
+    "release_date": "26 Jan 2026 00:00:00 GMT",
     "type": "album",
     "title": "Bugabot Camelot",
     "tracks": 6,
     "duration": "36:34"
   },
   {
-    "release_date": "09 Jan 2026 00:00:00 GMT",
-    "type": "track",
+    "release_date": "13 Jan 2026 00:00:00 GMT",
+    "type": "album",
     "title": "Glide",
-    "tracks": 1,
-    "duration": "12:27"
+    "tracks": 3,
+    "duration": "41:01"
   },
   {
     "release_date": "07 Jan 2026 00:00:00 GMT",
@@ -98,6 +196,13 @@
     "duration": "1:19"
   },
   {
+    "release_date": "07 Jul 2025 00:00:00 GMT",
+    "type": "album",
+    "title": "AstroSurfing",
+    "tracks": 32,
+    "duration": "2:57:12"
+  },
+  {
     "release_date": "23 Jun 2025 00:00:00 GMT",
     "type": "track",
     "title": "THE JUGGERNAUGHT RETURNS!!!!",
@@ -140,11 +245,11 @@
     "duration": "14:36"
   },
   {
-    "release_date": "05 Apr 2025 00:00:00 GMT",
+    "release_date": "06 May 2025 00:00:00 GMT",
     "type": "album",
-    "title": "Classic Projects",
-    "tracks": 22,
-    "duration": "27:50"
+    "title": "pastel femininity",
+    "tracks": 7,
+    "duration": "51:15"
   },
   {
     "release_date": "25 Jan 2025 00:00:00 GMT",
@@ -420,13 +525,6 @@
     "duration": "36:14"
   },
   {
-    "release_date": "14 Nov 2021 00:00:00 GMT",
-    "type": "album",
-    "title": "Flatlands",
-    "tracks": 23,
-    "duration": "47:15"
-  },
-  {
     "release_date": "15 Oct 2021 00:00:00 GMT",
     "type": "album",
     "title": "Corruption Junction",
@@ -434,11 +532,25 @@
     "duration": "28:25"
   },
   {
+    "release_date": "14 Nov 2021 00:00:00 GMT",
+    "type": "album",
+    "title": "Flatlands",
+    "tracks": 23,
+    "duration": "47:15"
+  },
+  {
     "release_date": "22 Sep 2021 00:00:00 GMT",
     "type": "album",
     "title": "Elkosaurus Tex",
     "tracks": 33,
     "duration": "1:24:57"
+  },
+  {
+    "release_date": "05 Apr 2025 00:00:00 GMT",
+    "type": "album",
+    "title": "Classic Projects",
+    "tracks": 22,
+    "duration": "27:50"
   },
   {
     "release_date": "19 Aug 2019 00:00:00 GMT",
@@ -473,7 +585,7 @@
     "type": "album",
     "title": "LIVE @ MEDINA BLOCK",
     "tracks": 3,
-    "duration": "8:22"
+    "duration": "8:21"
   },
   {
     "release_date": "14 Nov 2016 00:00:00 GMT",
@@ -488,5 +600,12 @@
     "title": "Made in merica",
     "tracks": 9,
     "duration": "24:26"
+  },
+  {
+    "release_date": "13 Sep 2026 00:00:00 GMT",
+    "type": "track",
+    "title": "Zot Doctor Eel (Beat)",
+    "tracks": 1,
+    "duration": "2:06"
   }
 ]
