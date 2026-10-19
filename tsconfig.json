@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "NodeNext",
-    "target": "ESNext",
+    "module": "nodenext",
+    "target": "esnext",
     "isolatedModules": true,
     "allowImportingTsExtensions": true,
     "jsx": "preserve",
